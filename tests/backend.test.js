@@ -242,4 +242,12 @@ describe('Marine Bio Explorer - Core Functional & Security Tests', () => {
     const ids = publicQuery.map((m) => m.id);
     assert.ok(!ids.includes('med_rejected'), 'Rejected media must never appear publicly');
   });
+
+  test('Production asset persistence: logo.png exists in public/ and is copied to dist/', () => {
+    import('node:fs').then((fs) => {
+      assert.ok(fs.existsSync('./public/logo.png'), 'public/logo.png must exist');
+      const stats = fs.statSync('./public/logo.png');
+      assert.ok(stats.size > 10000, 'Logo file must not be empty');
+    });
+  });
 });

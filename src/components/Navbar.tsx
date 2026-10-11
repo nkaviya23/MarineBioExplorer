@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           className="flex items-center gap-3 cursor-pointer group"
         >
           <img
-            src="/src/assets/images/marine_bio_logo_1791687723300.jpg"
+            src="/logo.png"
             alt="Marine Bio Explorer Logo"
             className="w-10 h-10 rounded-full object-cover shadow-md group-hover:scale-105 transition-transform border border-cyan-500/50 ring-2 ring-cyan-500/20"
             referrerPolicy="no-referrer"
