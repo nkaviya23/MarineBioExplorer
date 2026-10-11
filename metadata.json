@@ -1,0 +1,6 @@
+{
+  "name": "Marine Bio Explorer",
+  "description": "A community-powered platform for discovering, identifying, documenting, and exploring marine organisms.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
