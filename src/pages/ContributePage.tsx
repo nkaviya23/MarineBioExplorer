@@ -120,13 +120,13 @@ export const ContributePage: React.FC<ContributePageProps> = ({ onNavigate }) =>
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-5">
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
           Contribute a Marine Discovery
         </h1>
-        <p className="text-sm text-slate-400 mt-1 max-w-2xl">
+        <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
           Contribute ocean photographs and videos to the verified library. Every submission is reviewed by administrators
           before publication, and rights decisions are strictly preserved.
         </p>

@@ -115,19 +115,19 @@ export const IdentifyPage: React.FC<IdentifyPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
       {/* Header */}
-      <div className="mb-8 text-center sm:text-left">
+      <div className="mb-5 text-center sm:text-left">
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
           Marine Life Identification
         </h1>
-        <p className="text-sm text-slate-400 mt-1 max-w-2xl">
+        <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
           Need help identifying a specimen? Upload your photograph for review, or search the verified library.
         </p>
       </div>
 
       {/* Two Clear Ways To Begin - Segmented interactive buttons */}
-      <div className="flex border-b border-slate-800 mb-8 gap-6 text-sm font-medium">
+      <div className="flex border-b border-slate-800 mb-5 gap-6 text-sm font-medium">
         <button
           onClick={() => setActiveTab('upload')}
           className={`pb-3 border-b-2 transition-colors cursor-pointer flex items-center gap-2 ${

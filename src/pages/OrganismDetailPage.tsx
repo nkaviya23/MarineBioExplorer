@@ -59,23 +59,23 @@ export const OrganismDetailPage: React.FC<OrganismDetailPageProps> = ({ organism
   const currentMedia = media[selectedMediaIndex] || null;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 w-full">
       {/* Back button */}
       <button
         onClick={() => onNavigate('explore')}
-        className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-cyan-400 transition-colors mb-6 cursor-pointer"
+        className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-cyan-400 transition-colors mb-4 cursor-pointer"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Verified Library
       </button>
 
       {/* Header Profile Title */}
-      <div className="border-b border-slate-800 pb-6 mb-8">
+      <div className="border-b border-slate-800 pb-4 mb-6">
         <div className="flex flex-wrap items-baseline gap-3">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-100 tracking-tight">
             {organism.common_name}
           </h1>
-          <span className="text-xl font-serif italic text-cyan-300">
+          <span className="text-lg font-serif italic text-cyan-300">
             {organism.scientific_name}
           </span>
         </div>

@@ -85,15 +85,15 @@ export const ContributorDashboard: React.FC<ContributorDashboardProps> = ({ onNa
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
       {/* Welcome Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-3 mb-5">
         <div>
           <div className="flex items-center gap-2 text-xs text-cyan-400 font-mono uppercase tracking-wider mb-1">
             <User className="w-3.5 h-3.5" />
             <span>CONTRIBUTOR WORKSPACE</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
             Welcome, {user?.full_name || 'Ocean Explorer'}
           </h1>
           <p className="text-xs text-slate-400 mt-0.5">
@@ -104,7 +104,7 @@ export const ContributorDashboard: React.FC<ContributorDashboardProps> = ({ onNa
         <div className="flex items-center gap-2">
           <button
             onClick={() => onNavigate('contribute')}
-            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm shadow-cyan-950 transition-colors"
+            className="px-3.5 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm shadow-cyan-950 transition-colors"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             Contribute a Discovery
@@ -114,7 +114,7 @@ export const ContributorDashboard: React.FC<ContributorDashboardProps> = ({ onNa
               await logout();
               onNavigate('home');
             }}
-            className="p-2 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg text-xs cursor-pointer transition-colors"
+            className="p-1.5 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg text-xs cursor-pointer transition-colors"
             title="Sign Out"
           >
             <LogOut className="w-4 h-4" />
@@ -123,7 +123,7 @@ export const ContributorDashboard: React.FC<ContributorDashboardProps> = ({ onNa
       </div>
 
       {/* Quick Action Navigation Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-6">
         <div
           onClick={() => onNavigate('identify')}
           className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900 hover:border-cyan-800/60 transition-all cursor-pointer group"

@@ -44,19 +44,19 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-5">
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
           Verified Organism Library
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-slate-400 mt-1">
           Explore officially documented marine species with authenticated photographs and observation metadata.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/50 mb-8 space-y-3">
+      <div className="p-3.5 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/50 mb-5 space-y-3">
         <form onSubmit={handleSearchSubmit} className="flex gap-2">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -133,7 +133,7 @@ export const ExplorePage: React.FC<ExplorePageProps> = ({ onNavigate }) => {
           <p className="text-sm">Querying verified marine database...</p>
         </div>
       ) : organisms.length === 0 ? (
-        <div className="py-12">
+        <div className="py-4">
           <EmptyState
             title="The exploration library is waiting for its first discovery"
             description={

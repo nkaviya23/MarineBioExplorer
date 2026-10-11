@@ -19,8 +19,8 @@ export const UnknownsPage: React.FC<UnknownsPageProps> = ({ onNavigate }) => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-      <div className="mb-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
+      <div className="mb-5">
         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-950/60 border border-amber-800/60 text-amber-300 text-xs font-mono mb-2">
           <HelpCircle className="w-3.5 h-3.5" />
           <span>MYSTERIES &amp; UNIDENTIFIED SPECIMENS</span>
@@ -28,7 +28,7 @@ export const UnknownsPage: React.FC<UnknownsPageProps> = ({ onNavigate }) => {
         <h1 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
           Unidentified Ocean Observations
         </h1>
-        <p className="text-sm text-slate-400 mt-1 max-w-2xl">
+        <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
           These observations were submitted by ocean explorers but require community and taxonomic expertise to identify.
           Help review photos and characteristics.
         </p>

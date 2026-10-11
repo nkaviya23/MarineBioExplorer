@@ -81,21 +81,13 @@ export const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onNavigate }) =>
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center space-y-2">
-          <div className="relative inline-block mx-auto">
-            <img
-              src="/src/assets/images/marine_bio_logo_1791687723300.jpg"
-              alt="Marine Bio Explorer Logo"
-              className="w-16 h-16 rounded-full object-cover border-2 border-amber-500/60 shadow-lg mx-auto"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-amber-950 border border-amber-600 text-amber-400 flex items-center justify-center">
-              <Shield className="w-3.5 h-3.5" />
-            </div>
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md space-y-4">
+        <div className="text-center space-y-1.5">
+          <div className="w-10 h-10 rounded-xl bg-amber-950/60 border border-amber-800/80 text-amber-400 flex items-center justify-center mx-auto shadow-inner">
+            <Shield className="w-5 h-5" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-100 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
             Administrator Portal
           </h1>
           <p className="text-xs text-slate-400">

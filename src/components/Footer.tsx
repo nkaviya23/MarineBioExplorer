@@ -8,17 +8,11 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="border-t border-slate-900 bg-slate-950 text-slate-400 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-2 space-y-3">
-            <div className="flex items-center gap-2.5">
-              <img
-                src="/src/assets/images/marine_bio_logo_1791687723300.jpg"
-                alt="Marine Bio Explorer Logo"
-                className="w-7 h-7 rounded-full object-cover border border-cyan-500/40"
-                referrerPolicy="no-referrer"
-              />
-              <span className="font-semibold text-slate-200 text-sm">Marine Bio Explorer</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="md:col-span-2 space-y-2.5">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-slate-100 text-sm tracking-tight">Marine Bio Explorer</span>
             </div>
             <p className="text-slate-400 leading-relaxed max-w-md">
               A community-powered platform dedicated to documenting and verifying marine organisms.

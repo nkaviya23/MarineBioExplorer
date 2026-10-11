@@ -374,15 +374,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 w-full">
       {/* Top Admin Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-3 mb-5">
         <div>
           <div className="flex items-center gap-2 text-xs text-amber-400 font-mono uppercase tracking-wider mb-1">
             <Shield className="w-3.5 h-3.5" />
             <span>PROTECTED CURATOR CONSOLE</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-100 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
             Administrator Workspace
           </h1>
           <p className="text-xs text-slate-400 mt-0.5">
@@ -393,7 +393,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveSection('add-organism')}
-            className="px-3.5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm shadow-amber-950 transition-colors"
+            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm shadow-amber-950 transition-colors"
           >
             <PlusCircle className="w-3.5 h-3.5" />
             Add Organism
@@ -403,7 +403,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               await logout();
               onNavigate('admin-login');
             }}
-            className="p-2 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg text-xs cursor-pointer transition-colors"
+            className="p-1.5 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-slate-200 rounded-lg text-xs cursor-pointer transition-colors"
             title="Sign Out"
           >
             <LogOut className="w-4 h-4" />
@@ -412,7 +412,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
       </div>
 
       {/* Admin Navigation Bar */}
-      <div className="flex flex-wrap border-b border-slate-800 mb-8 gap-1 sm:gap-6 text-xs sm:text-sm font-medium">
+      <div className="flex flex-wrap border-b border-slate-800 mb-5 gap-1 sm:gap-6 text-xs sm:text-sm font-medium">
         <button
           onClick={() => setActiveSection('overview')}
           className={`pb-3 border-b-2 transition-colors cursor-pointer px-1 ${

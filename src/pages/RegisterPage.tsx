@@ -41,16 +41,10 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center space-y-2">
-          <img
-            src="/src/assets/images/marine_bio_logo_1791687723300.jpg"
-            alt="Marine Bio Explorer Logo"
-            className="w-16 h-16 rounded-full object-cover border-2 border-cyan-500/50 shadow-lg mx-auto"
-            referrerPolicy="no-referrer"
-          />
-          <h1 className="text-2xl font-bold text-slate-100">Join as an Explorer &amp; Contributor</h1>
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-md space-y-4">
+        <div className="text-center space-y-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-100">Join as an Explorer &amp; Contributor</h1>
           <p className="text-xs text-slate-400">
             Create an account to submit observations, participate in identification, and receive credit for discoveries.
           </p>
