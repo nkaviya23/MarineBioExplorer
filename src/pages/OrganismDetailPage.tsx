@@ -139,7 +139,7 @@ export const OrganismDetailPage: React.FC<OrganismDetailPageProps> = ({ organism
                     <span>Media Provenance &amp; Rights</span>
                   </div>
                   <span className="text-[11px] text-slate-400 font-mono">
-                    License: {currentMedia.license_type || 'Contributor Owned'}
+                    Category: {currentMedia.category || 'In Situ / Live Organism'} · License: {currentMedia.license_type || 'Contributor Owned'}
                   </span>
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, Search, Compass, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.tsx';
 import { EmptyState } from '../components/EmptyState.tsx';
@@ -28,6 +28,33 @@ export const IdentifyPage: React.FC<IdentifyPageProps> = ({ onNavigate }) => {
   const [searchResults, setSearchResults] = useState<Organism[]>([]);
   const [searchSearched, setSearchSearched] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
+
+  // Media Category
+  const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([
+    { id: 'in_situ', name: 'In Situ / Live Organism' },
+    { id: 'morphology', name: 'Morphological Detail' },
+    { id: 'behavior', name: 'Behavior & Interaction' },
+    { id: 'habitat', name: 'Habitat & Environment' },
+    { id: 'life_stage', name: 'Egg / Larval / Juvenile' },
+    { id: 'specimen', name: 'Specimen / Microscopic' },
+  ]);
+  const [mediaCategory, setMediaCategory] = useState('');
+
+  useEffect(() => {
+    fetch('/api/media-categories')
+      .then((res) => {
+        if (!res.ok) throw new Error('API failure');
+        return res.json();
+      })
+      .then((data) => {
+        if (data && Array.isArray(data.categories) && data.categories.length > 0) {
+          setCategories(data.categories);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load categories:', err);
+      });
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -69,6 +96,8 @@ export const IdentifyPage: React.FC<IdentifyPageProps> = ({ onNavigate }) => {
     formData.append('contributorNotes', description);
     formData.append('observationLocation', location);
     formData.append('observationDate', date);
+    formData.append('mediaCategory', mediaCategory || 'In Situ / Live Organism');
+    formData.append('category', mediaCategory || 'In Situ / Live Organism');
     formData.append('ownsMedia', 'true');
     formData.append('publicDisplayPermission', 'true'); // Community review
     formData.append('aiReferencePermission', 'false'); // Explicitly separated
@@ -239,6 +268,25 @@ export const IdentifyPage: React.FC<IdentifyPageProps> = ({ onNavigate }) => {
                     />
                   </label>
                 )}
+
+                {/* Media Category Dropdown */}
+                <div className="pt-3 border-t border-slate-800/80">
+                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Media Category
+                  </label>
+                  <select
+                    value={mediaCategory}
+                    onChange={(e) => setMediaCategory(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-600 transition-colors"
+                  >
+                    <option value="">Select category</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.name}>
+                        {cat.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* Observation Metadata */}

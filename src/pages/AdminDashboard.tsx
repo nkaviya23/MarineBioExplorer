@@ -1093,7 +1093,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
                     <div className="text-xs space-y-0.5">
                       <div className="font-mono text-slate-200">{med.original_filename}</div>
                       <div className="text-slate-400">
-                        License: <span className="text-slate-300">{med.license_type}</span> · Creator: {med.creator_name || 'Contributor'}
+                        Category: <span className="text-cyan-300 font-medium">{med.category || 'In Situ / Live Organism'}</span> · License: <span className="text-slate-300">{med.license_type}</span> · Creator: {med.creator_name || 'Contributor'}
                       </div>
                       <div className="text-[11px] text-slate-400">
                         Linked Organism: {med.organism_common_name || 'Unassigned'}
@@ -1162,6 +1162,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onNavigate }) =>
               <div><span className="text-slate-400">Contributor:</span> {inspectingSubmission.contributor_name} ({inspectingSubmission.contributor_email})</div>
               <div><span className="text-slate-400">Observation Date:</span> {inspectingSubmission.observation_date || 'Not recorded'}</div>
               <div><span className="text-slate-400">Location:</span> {inspectingSubmission.observation_location || 'Not recorded'}</div>
+              {inspectingSubmission.media && inspectingSubmission.media[0]?.category && (
+                <div><span className="text-slate-400">Media Category:</span> <span className="text-cyan-300 font-medium">{inspectingSubmission.media[0].category}</span></div>
+              )}
               <div><span className="text-slate-400">Notes:</span> {inspectingSubmission.contributor_notes || 'None'}</div>
             </div>
 

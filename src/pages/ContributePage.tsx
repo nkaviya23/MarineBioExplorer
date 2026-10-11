@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, ShieldCheck, CheckCircle2, AlertCircle, FileText, Video, Image as ImageIcon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.tsx';
 
@@ -30,6 +30,33 @@ export const ContributePage: React.FC<ContributePageProps> = ({ onNavigate }) =>
   const [licenseType, setLicenseType] = useState('Contributor Owned');
   const [publicDisplayPermission, setPublicDisplayPermission] = useState(false);
   const [aiReferencePermission, setAiReferencePermission] = useState(false);
+
+  // Media Category
+  const [categories, setCategories] = useState<Array<{ id: string; name: string; description?: string }>>([
+    { id: 'in_situ', name: 'In Situ / Live Organism', description: 'Living specimen in natural marine habitat' },
+    { id: 'morphology', name: 'Morphological Detail', description: 'Close-up of anatomy, textures, or diagnostic features' },
+    { id: 'behavior', name: 'Behavior & Interaction', description: 'Feeding, swimming, mating, defense, or symbiosis' },
+    { id: 'habitat', name: 'Habitat & Environment', description: 'Reef, seafloor, or water column context' },
+    { id: 'life_stage', name: 'Egg / Larval / Juvenile', description: 'Early developmental or juvenile life stage' },
+    { id: 'specimen', name: 'Specimen / Microscopic', description: 'Collected research specimen or microscopic imaging' },
+  ]);
+  const [mediaCategory, setMediaCategory] = useState('');
+
+  useEffect(() => {
+    fetch('/api/media-categories')
+      .then((res) => {
+        if (!res.ok) throw new Error('API request failed');
+        return res.json();
+      })
+      .then((data) => {
+        if (data && Array.isArray(data.categories) && data.categories.length > 0) {
+          setCategories(data.categories);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load categories from server, using built-in defaults:', err);
+      });
+  }, []);
 
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -97,6 +124,8 @@ export const ContributePage: React.FC<ContributePageProps> = ({ onNavigate }) =>
     formData.append('originalSource', originalSource);
     formData.append('attributionName', attributionName || contributorAttribution || user.full_name);
     formData.append('licenseType', licenseType);
+    formData.append('mediaCategory', mediaCategory || 'In Situ / Live Organism');
+    formData.append('category', mediaCategory || 'In Situ / Live Organism');
     formData.append('publicDisplayPermission', publicDisplayPermission ? 'true' : 'false');
     formData.append('aiReferencePermission', aiReferencePermission ? 'true' : 'false');
 
@@ -238,6 +267,28 @@ export const ContributePage: React.FC<ContributePageProps> = ({ onNavigate }) =>
                 />
               </label>
             )}
+
+            {/* Media Category Dropdown */}
+            <div className="pt-3 border-t border-slate-800/80">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                Media Category
+              </label>
+              <select
+                value={mediaCategory}
+                onChange={(e) => setMediaCategory(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-600 transition-colors"
+              >
+                <option value="">Select category</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.name}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+              <p className="text-[11px] text-slate-400 mt-1">
+                Classify the observation type (e.g., live in situ, morphological close-up, behavior, or habitat context).
+              </p>
+            </div>
           </div>
 
           {/* 2. Observation Details */}

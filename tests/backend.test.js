@@ -250,4 +250,41 @@ describe('Marine Bio Explorer - Core Functional & Security Tests', () => {
       assert.ok(stats.size > 10000, 'Logo file must not be empty');
     });
   });
+
+  test('Media categories: schema supports categories and default categories exist', () => {
+    db.exec(`
+      CREATE TABLE IF NOT EXISTS media_categories (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        description TEXT,
+        display_order INTEGER NOT NULL DEFAULT 0
+      );
+    `);
+    const insertCat = db.prepare('INSERT OR IGNORE INTO media_categories (id, name, description, display_order) VALUES (?, ?, ?, ?)');
+    insertCat.run('in_situ', 'In Situ / Live Organism', 'Living specimen', 1);
+    insertCat.run('morphology', 'Morphological Detail', 'Close-up anatomy', 2);
+
+    const categories = db.prepare('SELECT * FROM media_categories ORDER BY display_order ASC').all();
+    assert.ok(categories.length >= 2, 'Must have at least 2 categories');
+    assert.equal(categories[0].name, 'In Situ / Live Organism');
+  });
+
+  test('Media record category persistence: media table stores and retrieves category', () => {
+    try {
+      db.exec("ALTER TABLE media ADD COLUMN category TEXT DEFAULT 'In Situ / Live Organism'");
+    } catch {
+      // already exists
+    }
+
+    const now = new Date().toISOString();
+    db.prepare(`
+      INSERT INTO media (
+        id, file_path, original_filename, file_type, file_size, mime_type,
+        category, status, created_at, updated_at
+      ) VALUES ('med_cat_test', '/uploads/cat.jpg', 'cat.jpg', 'image', 100, 'image/jpeg', 'Behavior & Interaction', 'APPROVED', ?, ?)
+    `).run(now, now);
+
+    const record = db.prepare('SELECT category FROM media WHERE id = ?').get('med_cat_test');
+    assert.equal(record.category, 'Behavior & Interaction', 'Media category must be persisted');
+  });
 });

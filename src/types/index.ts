@@ -40,10 +40,18 @@ export interface MediaItem {
   ai_reference_permission: number;
   status: MediaStatus;
   is_primary: number;
+  category?: string;
   created_at: string;
   updated_at: string;
   organism_common_name?: string;
   organism_scientific_name?: string;
+}
+
+export interface MediaCategory {
+  id: string;
+  name: string;
+  description?: string;
+  display_order?: number;
 }
 
 export interface ReviewLog {

@@ -97,8 +97,16 @@ export function initializeDatabase() {
       ai_reference_permission INTEGER NOT NULL DEFAULT 0,
       status TEXT NOT NULL DEFAULT 'PENDING' CHECK(status IN ('PENDING', 'APPROVED', 'REJECTED')),
       is_primary INTEGER NOT NULL DEFAULT 0,
+      category TEXT DEFAULT 'In Situ / Live Organism',
       created_at TEXT NOT NULL,
       updated_at TEXT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS media_categories (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      description TEXT,
+      display_order INTEGER NOT NULL DEFAULT 0
     );
 
     CREATE TABLE IF NOT EXISTS reviews (
@@ -125,6 +133,30 @@ export function initializeDatabase() {
     CREATE INDEX IF NOT EXISTS idx_media_submission_id ON media(submission_id);
     CREATE INDEX IF NOT EXISTS idx_media_status ON media(status);
   `);
+
+  // Safe migration for existing media table
+  try {
+    db.exec("ALTER TABLE media ADD COLUMN category TEXT DEFAULT 'In Situ / Live Organism'");
+  } catch {
+    // Column already exists
+  }
+
+  // Populate default media categories if table is empty
+  const catCount = (db.prepare('SELECT COUNT(*) as count FROM media_categories').get() as { count: number }).count;
+  if (catCount === 0) {
+    const insertCat = db.prepare('INSERT INTO media_categories (id, name, description, display_order) VALUES (?, ?, ?, ?)');
+    const defaultCats = [
+      { id: 'in_situ', name: 'In Situ / Live Organism', desc: 'Living specimen observed in its natural marine habitat', order: 1 },
+      { id: 'morphology', name: 'Morphological Detail', desc: 'Close-up of anatomical features, fins, tentacles, or textures', order: 2 },
+      { id: 'behavior', name: 'Behavior & Interaction', desc: 'Feeding, swimming, mating, defense, or symbiotic behavior', order: 3 },
+      { id: 'habitat', name: 'Habitat & Environment', desc: 'Surrounding reef, seafloor, or water column context', order: 4 },
+      { id: 'life_stage', name: 'Egg / Larval / Juvenile', desc: 'Early developmental or juvenile life cycle stages', order: 5 },
+      { id: 'specimen', name: 'Specimen / Microscopic', desc: 'Collected research specimen or microscopic imaging', order: 6 },
+    ];
+    for (const c of defaultCats) {
+      insertCat.run(c.id, c.name, c.desc, c.order);
+    }
+  }
 
   // Optional automatic bootstrap of initial administrator ONLY if explicitly configured in env and no admin exists
   const initialEmail = process.env.INITIAL_ADMIN_EMAIL;

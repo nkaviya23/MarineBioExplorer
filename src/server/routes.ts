@@ -38,6 +38,16 @@ apiRouter.get('/admin/setup-status', (_req, res) => {
   });
 });
 
+// Media Categories - Database-backed taxonomy for media observations
+apiRouter.get(['/media-categories', '/media/categories'], (_req, res) => {
+  try {
+    const categories = db.prepare('SELECT id, name, description, display_order FROM media_categories ORDER BY display_order ASC').all();
+    res.json({ categories });
+  } catch (err: any) {
+    res.status(500).json({ error: 'Failed to retrieve media categories', details: err.message });
+  }
+});
+
 // Initial Administrator Setup
 apiRouter.post('/admin/setup', (req, res) => {
   const { email, password, fullName, setupSecret } = req.body;
@@ -262,8 +272,11 @@ apiRouter.post('/submissions', requireAuth, uploadMiddleware.array('files', 2), 
     publicDisplayPermission = 'false',
     aiReferencePermission = 'false',
     licenseType = 'Contributor Owned',
+    mediaCategory = '',
+    category = '',
   } = req.body;
 
+  const resolvedCategory = (mediaCategory || category || 'In Situ / Live Organism').trim();
   const parsedOwnsMedia = ownsMedia === 'true' || ownsMedia === true ? 1 : 0;
   const parsedPublicDisplay = publicDisplayPermission === 'true' || publicDisplayPermission === true ? 1 : 0;
   const parsedAiReference = aiReferencePermission === 'true' || aiReferencePermission === true ? 1 : 0;
@@ -299,14 +312,14 @@ apiRouter.post('/submissions', requireAuth, uploadMiddleware.array('files', 2), 
       source_organization, creator_name, copyright_holder,
       license_type, attribution_text, owns_media,
       public_display_permission, ai_reference_permission,
-      status, is_primary, created_at, updated_at
+      status, is_primary, category, created_at, updated_at
     ) VALUES (
       ?, ?, ?, ?,
       ?, ?, ?, ?,
       ?, ?, ?,
       ?, ?, ?,
       ?, ?,
-      'PENDING', ?, ?, ?
+      'PENDING', ?, ?, ?, ?
     )
   `);
 
@@ -355,6 +368,7 @@ apiRouter.post('/submissions', requireAuth, uploadMiddleware.array('files', 2), 
         parsedPublicDisplay,
         parsedAiReference,
         index === 0 ? 1 : 0,
+        resolvedCategory,
         now,
         now
       );
